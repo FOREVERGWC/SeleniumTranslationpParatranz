@@ -1,0 +1,2 @@
+# SeleniumTranslationpParatranz
+自动化更新云汉化平台指定项目的词条翻译
