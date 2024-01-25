@@ -15,8 +15,10 @@ def translation_words(words):
     browser = webdriver.Chrome()
     for word in words:
         path = f"https://www.bing.com/translator?ref=TThis&text={word['original'].replace(' ', '%20')}&from=auto&to={to}"
+        if len(path) >= 513:
+            print(f"词条过长，跳过词条：{path}")
+            continue
         browser.get(path)
-        # TODO 判断文本长度，超出指定长度进行跳过，不执行翻译
         for i in range(1, 200):
             try:
                 element = browser.find_element(By.ID, "tta_output_ta")
@@ -67,6 +69,5 @@ if __name__ == '__main__':
         data = response.json()
         if status_code == 200:
             words = translation_words(data["results"])
-            # update_words(words)
         if page == data["pageCount"]:
             break
